@@ -50,7 +50,7 @@ export const Sidebar = () => {
       </div>
 
       <SidebarContent>
-        <SidebarGroup defaultOpen={isGroupExpanded}>
+        <SidebarGroup>
           <SidebarGroupLabel className={collapsed ? "sr-only" : ""}>
             Navigation
           </SidebarGroupLabel>

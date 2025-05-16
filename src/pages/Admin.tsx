@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,67 +9,80 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Ticket, Search, UserCheck, Clock } from "lucide-react";
 import { toast } from "@/components/ui/sonner";
 
+// Define type for the ticket
+interface Ticket {
+  id: string;
+  name: string;
+  age: number;
+  gender: string;
+  priority: "high" | "medium" | "low";
+  department: string;
+  created: string;
+  waiting: string;
+  status: "waiting" | "processing" | "completed";
+}
+
 // Mock data for priority tickets
-const PRIORITY_TICKETS = [
+const PRIORITY_TICKETS: Ticket[] = [
   {
     id: "PT-32145",
     name: "John Doe",
     age: 42,
     gender: "Male",
-    priority: "high" as const,
+    priority: "high",
     department: "Emergency",
     created: "10:24 AM",
     waiting: "12 min",
-    status: "waiting" as const,
+    status: "waiting",
   },
   {
     id: "PT-32146",
     name: "Alice Smith",
     age: 35,
     gender: "Female",
-    priority: "medium" as const,
+    priority: "medium",
     department: "Cardiology",
     created: "10:15 AM",
     waiting: "21 min",
-    status: "waiting" as const,
+    status: "waiting",
   },
   {
     id: "PT-32147",
     name: "Robert Johnson",
     age: 58,
     gender: "Male",
-    priority: "low" as const,
+    priority: "low",
     department: "Neurology",
     created: "10:08 AM",
     waiting: "28 min",
-    status: "waiting" as const,
+    status: "waiting",
   },
   {
     id: "PT-32140",
     name: "Sarah Williams",
     age: 29,
     gender: "Female",
-    priority: "medium" as const,
+    priority: "medium",
     department: "Orthopedics",
     created: "09:45 AM",
     waiting: "51 min",
-    status: "processing" as const,
+    status: "processing",
   },
   {
     id: "PT-32138",
     name: "Michael Brown",
     age: 63,
     gender: "Male",
-    priority: "high" as const,
+    priority: "high",
     department: "Emergency",
     created: "09:30 AM",
     waiting: "66 min",
-    status: "completed" as const,
+    status: "completed",
   },
 ];
 
 const Admin = () => {
-  const [tickets, setTickets] = useState(PRIORITY_TICKETS);
+  const [tickets, setTickets] = useState<Ticket[]>(PRIORITY_TICKETS);
   const [activeTab, setActiveTab] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState<string>("");
   
@@ -91,14 +103,14 @@ const Admin = () => {
 
   const handleProcessTicket = (id: string) => {
     setTickets(tickets.map(ticket => 
-      ticket.id === id ? { ...ticket, status: "processing" } : ticket
+      ticket.id === id ? { ...ticket, status: "processing" as const } : ticket
     ));
     toast.success(`Patient ${id} moved to processing`);
   };
 
   const handleCompleteTicket = (id: string) => {
     setTickets(tickets.map(ticket => 
-      ticket.id === id ? { ...ticket, status: "completed" } : ticket
+      ticket.id === id ? { ...ticket, status: "completed" as const } : ticket
     ));
     toast.success(`Patient ${id} check-in completed`);
   };
@@ -224,18 +236,6 @@ const Admin = () => {
     </div>
   );
 };
-
-interface Ticket {
-  id: string;
-  name: string;
-  age: number;
-  gender: string;
-  priority: "high" | "medium" | "low";
-  department: string;
-  created: string;
-  waiting: string;
-  status: "waiting" | "processing" | "completed";
-}
 
 interface TicketItemProps {
   ticket: Ticket;
