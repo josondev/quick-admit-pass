@@ -22,7 +22,8 @@ const navItems = [
 ];
 
 export const Sidebar = () => {
-  const { collapsed } = useSidebar();
+  const { state } = useSidebar();
+  const collapsed = state === "collapsed";
   const location = useLocation();
   const currentPath = location.pathname;
 
@@ -39,7 +40,7 @@ export const Sidebar = () => {
       className={`bg-white border-r transition-all duration-300 ${
         collapsed ? "w-16" : "w-64"
       }`}
-      collapsible
+      collapsible="icon"
     >
       <div className="flex items-center justify-between p-4">
         {!collapsed && (
@@ -49,7 +50,7 @@ export const Sidebar = () => {
       </div>
 
       <SidebarContent>
-        <SidebarGroup open={isGroupExpanded}>
+        <SidebarGroup defaultOpen={isGroupExpanded}>
           <SidebarGroupLabel className={collapsed ? "sr-only" : ""}>
             Navigation
           </SidebarGroupLabel>
